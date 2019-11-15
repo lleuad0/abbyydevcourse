@@ -7,23 +7,21 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         HashMap<Character, Integer> symbols = new HashMap<>();
-
-        try (FileReader fileReader = new FileReader("res/text.txt")) {
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader("res/text.txt"))) {
             int i;
-            while ((i = fileReader.read()) != -1) {
+            while ((i = bufferedReader.read()) != -1) {
                 char ch = (char) i;
                 if (!symbols.containsKey(ch)) {
                     symbols.put(ch, 1);
                 } else {
-                    int count = symbols.get(ch);
-                    symbols.put(ch, ++count);
+                    symbols.replace(ch, symbols.get(ch) + 1);
                 }
             }
         }
 
-        try (FileWriter fileWriter = new FileWriter("res/symbols.txt")) {
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("res/symbols.txt"))) {
             for (char ch : symbols.keySet()) {
-                fileWriter.write(ch + " " + symbols.get(ch) + "\n");
+                bufferedWriter.write(ch + " " + symbols.get(ch) + "\n");
                 // в файле будут два символа, которые выглядят как перевод строки
                 // это служебные символы Юникода, NL и CR (не баг, а фича!)
             }
