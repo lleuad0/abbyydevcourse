@@ -15,6 +15,7 @@ class Array {
         array = new int[rows][columns];
         random = new Random();
 
+        // заполнение массива
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
                 array[i][j] = random.nextInt(10);
@@ -34,17 +35,21 @@ class Array {
         return result.toString();
     }
 
-    public void sortArray() {
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < columns - 1; j++) {
-                for (int k = j; k < columns; k++) {
-                    if (array[i][k] > array[i][j]) {
-                        int temp = array[i][k];
-                        array[i][k] = array[i][j];
-                        array[i][j] = temp;
-                    }
-                }
+    // метод для одномерного массива, который ставит наибольший элемент на первое место
+    private void biggestFirst(int[] initial) {
+        // элементы массива сравниваются с первым, поэтому цикл начинается со второго
+        for (int i = 1; i < initial.length; i++) {
+            if (initial[i] > initial[0]) {
+                int temp = initial[0];
+                initial[0] = initial[i];
+                initial[i] = temp;
             }
+        }
+    }
+
+    public void reformArray() {
+        for (int i = 0; i < rows; i++) {
+            biggestFirst(array[i]);
         }
     }
 }

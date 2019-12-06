@@ -6,8 +6,8 @@ public class Main {
         //часть 1, про массив
         Array array = new Array(6, 7);
         System.out.println("Исходный массив\n" + array);
-        array.sortArray();
-        System.out.println("Отсортированный массив\n" + array);
+        array.reformArray();
+        System.out.println("Преобразованный массив\n" + array);
 
         //часть 2, про точки и прямоугольники
         Point p1 = new Point(-2, 5);
