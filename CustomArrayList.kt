@@ -1,12 +1,8 @@
-class CustomArrayList<T> {
+class CustomArrayList<T>(initialCapacity: Int = 10) {
     private var cursor = 0
     private var elements: Array<Any?>
 
-    constructor() {
-        elements = arrayOfNulls(10)
-    }
-
-    constructor(initialCapacity: Int) {
+    init {
         if (initialCapacity < 0) throw IllegalArgumentException("Invalid capacity $initialCapacity")
         elements = arrayOfNulls(initialCapacity)
     }
@@ -54,4 +50,3 @@ class CustomArrayList<T> {
     }
 
 }
-
