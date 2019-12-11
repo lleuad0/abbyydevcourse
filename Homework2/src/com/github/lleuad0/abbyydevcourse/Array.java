@@ -5,8 +5,8 @@ import java.util.Random;
 class Array {
     private Random random;
     private int[][] array;
-    private int rows;
-    private int columns;
+    private final int rows;
+    private final int columns;
 
     public Array(int rows, int columns) {
         this.rows = rows;
@@ -36,13 +36,13 @@ class Array {
     }
 
     // метод для одномерного массива, который ставит наибольший элемент на первое место
-    private void biggestFirst(int[] initial) {
+    private void biggestFirst(int[] elements) {
         // элементы массива сравниваются с первым, поэтому цикл начинается со второго
-        for (int i = 1; i < initial.length; i++) {
-            if (initial[i] > initial[0]) {
-                int temp = initial[0];
-                initial[0] = initial[i];
-                initial[i] = temp;
+        for (int i = 1; i < elements.length; i++) {
+            if (elements[i] > elements[0]) {
+                int temp = elements[0];
+                elements[0] = elements[i];
+                elements[i] = temp;
             }
         }
     }
