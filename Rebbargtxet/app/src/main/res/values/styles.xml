@@ -41,7 +41,7 @@
         <item name="android:layout_marginBottom">0dp</item>
     </style>
 
-    <style name="NoteContentActivityTheme" parent="DefaultMarginTheme">
+    <style name="NoteContentFragmentTheme" parent="DefaultMarginTheme">
         <item name="android:orientation">vertical</item>
     </style>
 

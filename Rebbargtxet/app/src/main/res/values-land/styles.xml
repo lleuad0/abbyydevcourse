@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="NoteContentActivityTheme" parent="DefaultMarginTheme">
+    <style name="NoteContentFragmentTheme" parent="DefaultMarginTheme">
         <item name="android:orientation">horizontal</item>
     </style>
 
