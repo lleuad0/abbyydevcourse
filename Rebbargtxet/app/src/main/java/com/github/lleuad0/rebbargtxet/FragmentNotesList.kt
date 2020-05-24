@@ -8,7 +8,11 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-class FragmentNotesList : Fragment() {
+class FragmentNotesList : Fragment(), NoteAdapter.Listener {
+
+    override fun onNoteClick(noteId: Long) {
+        (activity as? MainActivity)?.onNoteClick(noteId)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,5 +34,6 @@ class FragmentNotesList : Fragment() {
         val noteAdapter = NoteAdapter()
         recyclerView.adapter = noteAdapter
         noteAdapter.noteList = NoteRepository.getNotesList()
+        noteAdapter.listener = this
     }
 }

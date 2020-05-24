@@ -2,20 +2,29 @@ package com.github.lleuad0.rebbargtxet
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.FragmentManager
 
-class MainActivity : AppCompatActivity() {
-    companion object {
-        lateinit var manager: FragmentManager
+const val ID_KEY = "ID_KEY"
+
+class MainActivity : AppCompatActivity(), NoteAdapter.Listener {
+
+    override fun onNoteClick(noteId: Long) {
+        val fragmentNoteContent = FragmentNoteContent()
+        val bundle = Bundle()
+        bundle.putLong(ID_KEY, noteId)
+        fragmentNoteContent.arguments = bundle
+
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_holder, fragmentNoteContent)
+            .addToBackStack(null)
+            .commit()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        manager = supportFragmentManager
         if (savedInstanceState == null) {
-            manager.beginTransaction()
+            supportFragmentManager.beginTransaction()
                 .add(R.id.fragment_holder, FragmentNotesList())
                 .commit()
         }
