@@ -2,24 +2,32 @@ package com.github.lleuad0.rebbargtxet
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 
-class MainActivity : AppCompatActivity() {
+const val ID_KEY = "ID_KEY"
+
+class MainActivity : AppCompatActivity(), NoteAdapter.Listener {
+
+    override fun onNoteClick(noteId: Long) {
+        val fragmentNoteContent = FragmentNoteContent()
+        val bundle = Bundle()
+        bundle.putLong(ID_KEY, noteId)
+        fragmentNoteContent.arguments = bundle
+
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_holder, fragmentNoteContent)
+            .addToBackStack(null)
+            .commit()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        title = getString(R.string.main_activity_title)
 
-        val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.setHasFixedSize(true)
-        recyclerView.recycledViewPool.setMaxRecycledViews(0, 5)
-
-        val noteAdapter = NoteAdapter()
-        recyclerView.adapter = noteAdapter
-        noteAdapter.noteList = NoteRepository.getNotesList()
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .add(R.id.fragment_holder, FragmentNotesList())
+                .commit()
+        }
     }
 
 }

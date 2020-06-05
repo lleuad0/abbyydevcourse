@@ -12,10 +12,15 @@ class NoteAdapter : RecyclerView.Adapter<NoteViewHolder>() {
             notifyDataSetChanged()
         }
 
+    interface Listener {
+        fun onNoteClick(noteId: Long)
+    }
+    lateinit var listener:Listener
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val view = layoutInflater.inflate(R.layout.note_list_item, parent, false)
-        return NoteViewHolder(view)
+        return NoteViewHolder(view, listener)
     }
 
     override fun getItemCount(): Int = noteList.size

@@ -7,14 +7,12 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import java.text.SimpleDateFormat
 
-class NoteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class NoteViewHolder(itemView: View, listener: NoteAdapter.Listener) :
+    RecyclerView.ViewHolder(itemView) {
 
     init {
         val cardView = itemView.findViewById<CardView>(R.id.card_view)
-        cardView.setOnClickListener {
-            val intent = NoteContentActivity.getIntent(itemView.context, id)
-            itemView.context.startActivity(intent)
-        }
+        cardView.setOnClickListener { listener.onNoteClick(id) }
     }
 
     private val previewTextView = itemView.findViewById<TextView>(R.id.preview_text_view)
