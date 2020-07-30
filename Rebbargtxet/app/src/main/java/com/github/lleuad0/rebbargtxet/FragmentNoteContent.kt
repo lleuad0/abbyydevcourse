@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import com.github.lleuad0.rebbargtxet.MainActivity.Companion.isTabletInLandscape
 
 class FragmentNoteContent : Fragment() {
     override fun onCreateView(
@@ -16,6 +17,11 @@ class FragmentNoteContent : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         activity?.title = getString(R.string.note_content_title)
+
+        if (isTabletInLandscape()) {
+            activity?.findViewById<View>(R.id.fragment_holder_note)?.visibility = View.VISIBLE
+        }
+
         return inflater.inflate(R.layout.fragment_note_content, container, false)
     }
 
@@ -31,5 +37,13 @@ class FragmentNoteContent : Fragment() {
         imageView.setImageResource(note?.drawableRes ?: android.R.color.darker_gray)
         textView.text = note?.text ?: getString(R.string.text_error_message)
         textView.movementMethod = ScrollingMovementMethod()
+    }
+
+    override fun onDestroyView() {
+        if (isTabletInLandscape()) {
+            activity?.findViewById<View>(R.id.fragment_holder_note)?.visibility = View.GONE
+        }
+
+        super.onDestroyView()
     }
 }
