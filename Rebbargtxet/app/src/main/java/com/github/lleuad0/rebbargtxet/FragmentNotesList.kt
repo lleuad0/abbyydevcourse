@@ -5,10 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.github.lleuad0.rebbargtxet.MainActivity.Companion.isTabletInPortrait
 
 class FragmentNotesList : Fragment(), NoteAdapter.Listener {
 
@@ -29,12 +27,7 @@ class FragmentNotesList : Fragment(), NoteAdapter.Listener {
         super.onViewCreated(view, savedInstanceState)
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
-
-        if (isTabletInPortrait()) {
-            recyclerView.layoutManager = GridLayoutManager(context, 2)
-        } else {
-            recyclerView.layoutManager = LinearLayoutManager(context)
-        }
+        recyclerView.layoutManager = LinearLayoutManager(context)
 
         recyclerView.setHasFixedSize(true)
         recyclerView.recycledViewPool.setMaxRecycledViews(0, 8)
