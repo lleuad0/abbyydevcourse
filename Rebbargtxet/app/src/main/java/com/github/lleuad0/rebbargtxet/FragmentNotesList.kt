@@ -28,8 +28,9 @@ class FragmentNotesList : Fragment(), NoteAdapter.Listener {
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(context)
+
         recyclerView.setHasFixedSize(true)
-        recyclerView.recycledViewPool.setMaxRecycledViews(0, 5)
+        recyclerView.recycledViewPool.setMaxRecycledViews(0, 8)
 
         val noteAdapter = NoteAdapter()
         recyclerView.adapter = noteAdapter

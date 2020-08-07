@@ -2,8 +2,10 @@ package com.github.lleuad0.rebbargtxet
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.fragment.app.FragmentManager
 
 const val ID_KEY = "ID_KEY"
+const val NOTE_BACKSTACK = "NOTE_BACKSTACK"
 
 class MainActivity : AppCompatActivity(), NoteAdapter.Listener {
 
@@ -13,9 +15,23 @@ class MainActivity : AppCompatActivity(), NoteAdapter.Listener {
         bundle.putLong(ID_KEY, noteId)
         fragmentNoteContent.arguments = bundle
 
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_holder, fragmentNoteContent)
-            .addToBackStack(null)
+        val transaction = supportFragmentManager.beginTransaction()
+
+        if (resources.getBoolean(R.bool.isPhone)) {
+            transaction.replace(R.id.fragment_holder_list, fragmentNoteContent)
+        } else {
+            if (supportFragmentManager.findFragmentById(R.id.fragment_holder_note) == null) {
+                transaction.add(R.id.fragment_holder_note, fragmentNoteContent)
+            } else {
+                supportFragmentManager.popBackStack(
+                    NOTE_BACKSTACK,
+                    FragmentManager.POP_BACK_STACK_INCLUSIVE
+                )
+                transaction.replace(R.id.fragment_holder_note, fragmentNoteContent)
+            }
+        }
+
+        transaction.addToBackStack(NOTE_BACKSTACK)
             .commit()
     }
 
@@ -25,7 +41,7 @@ class MainActivity : AppCompatActivity(), NoteAdapter.Listener {
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .add(R.id.fragment_holder, FragmentNotesList())
+                .add(R.id.fragment_holder_list, FragmentNotesList())
                 .commit()
         }
     }
