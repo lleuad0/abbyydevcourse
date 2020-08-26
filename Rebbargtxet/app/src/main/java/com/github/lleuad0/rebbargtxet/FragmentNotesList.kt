@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.github.lleuad0.rebbargtxet.App.Companion.noteRepository
 
 class FragmentNotesList : Fragment(), NoteAdapter.Listener {
 
@@ -34,7 +35,7 @@ class FragmentNotesList : Fragment(), NoteAdapter.Listener {
 
         val noteAdapter = NoteAdapter()
         recyclerView.adapter = noteAdapter
-        noteAdapter.noteList = NoteRepository.getNotesList()
+        noteAdapter.noteList = noteRepository.getNotesList()
         noteAdapter.listener = this
     }
 }
