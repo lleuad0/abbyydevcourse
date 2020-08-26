@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import com.github.lleuad0.rebbargtxet.App.Companion.noteRepository
 
 class FragmentNoteContent : Fragment() {
     override fun onCreateView(
@@ -26,7 +27,7 @@ class FragmentNoteContent : Fragment() {
         val textView = view.findViewById<TextView>(R.id.note_content_text_view)
 
         val id = arguments?.getLong(ID_KEY) ?: -1
-        val note = NoteRepository.getNoteById(id)
+        val note = noteRepository.getNoteById(id)
 
         imageView.setImageResource(note?.drawableRes ?: android.R.color.darker_gray)
         textView.text = note?.text ?: getString(R.string.text_error_message)
